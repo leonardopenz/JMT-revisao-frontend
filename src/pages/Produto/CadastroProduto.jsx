@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from "axios";
 import "./CadastroProduto.css"; // Import do CSS
 
 export default function CadastroProduto() {
@@ -7,13 +8,14 @@ export default function CadastroProduto() {
   const [descricao, setDescricao] = useState("");
   const [imagem, setImagem] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const produto = { nome, preco, descricao, imagem };
     console.log("Produto cadastrado:", produto);
 
-    // Aqui você poderia enviar para API com axios/fetch
+    const response = await axios.post("http://localhost:3001/produtos", produto);
+    console.log("Produto cadastrado com sucesso:", response.data);
 
     // Limpar os campos
     setNome("");
