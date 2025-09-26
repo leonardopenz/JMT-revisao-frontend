@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
 import "./CadastroProduto.css";
 
 export default function ListaProdutos() {
   const [produtos, setProdutos] = useState([]);
+  const navigate = useNavigate();
 
   const carregarProdutos = () => {
     axios
@@ -47,6 +49,10 @@ export default function ListaProdutos() {
     });
   };
 
+  const editarProduto = (id) => {
+    navigate(`/produtos/${id}/editar`);
+  };
+
   return (
     <div className="produtos-container">
       <h2>Produtos cadastrados</h2>
@@ -62,7 +68,9 @@ export default function ListaProdutos() {
               <button className="btn-deletar" onClick={() => deletarProduto(produto.id)}>
                 Deletar
               </button>
-              <button className="btn-editar">Editar</button>
+              <button className="btn-editar" onClick={() => editarProduto(produto.id)}>
+                Editar
+              </button>
             </div>
           </div>
         ))}
